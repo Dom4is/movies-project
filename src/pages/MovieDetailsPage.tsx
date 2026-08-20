@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getMovieDetails } from "../api/moviesApi";
 import type { MovieDetails } from "../types/movieTypes";
+import Header from "../components/Header/Header";
 
 export default function MovieDetailsPage() {
   const { id } = useParams<{ id: string }>();
@@ -32,7 +33,8 @@ export default function MovieDetailsPage() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
-      <div className="flex flex-col md:flex-row gap-8">
+      <Header />
+      <div className="flex flex-col md:flex-row gap-8 py-4">
         <img
           src={
             movie.Poster !== "N/A"

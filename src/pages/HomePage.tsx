@@ -3,6 +3,7 @@ import type { Movie } from "../types/movieTypes";
 import MovieList from "../components/MovieList/MovieList";
 import SearchBar from "../components/SearchBar/SearchBar";
 import { searchMoviesApi } from "../api/moviesApi";
+import Header from "../components/Header/Header";
 
 export default function HomePage() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -29,21 +30,24 @@ export default function HomePage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-center mb-8 text-slate-800 dark:text-white ">
+    <div className="max-w-6xl mx-auto px-4 py-8 dark:bg-gray-900">
+      <Header />
+      {/* <h1 className="text-3xl font-bold text-center mb-8 text-slate-800 dark:text-white ">
         Поиск фильмов
-      </h1>
-      <SearchBar onSearch={handleSearch} />
-      {loading && (
-        <p className="text-center mt-8 text-slate-600 dark:text-slate-300">
-          Загрузка...
-        </p>
-      )}
-      {error && <p className="text-center mt-8 text-red-500">{error}</p>}
+      </h1> */}
+      <main className="py-4">
+        <SearchBar onSearch={handleSearch} />
+        {loading && (
+          <p className="text-center mt-8 text-slate-600 dark:text-slate-300">
+            Загрузка...
+          </p>
+        )}
+        {error && <p className="text-center mt-8 text-red-500">{error}</p>}
 
-      <section className="mt-8">
-        {!loading && !error && <MovieList movies={movies} />}
-      </section>
+        <section className="mt-8">
+          {!loading && !error && <MovieList movies={movies} />}
+        </section>
+      </main>
     </div>
   );
 }
