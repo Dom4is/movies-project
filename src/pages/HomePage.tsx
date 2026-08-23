@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Movie } from "../types/movieTypes";
+import type { Movie, MovieSearchQuery } from "../types/movieTypes";
 import MovieList from "../components/MovieList/MovieList";
 import SearchBar from "../components/SearchBar/SearchBar";
 import { searchMoviesApi } from "../api/moviesApi";
@@ -10,11 +10,11 @@ export default function HomePage() {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleSearch = async (query: string) => {
+  const handleSearch = async (params: MovieSearchQuery) => {
     setLoading(true);
     setError(null);
     try {
-      const data = await searchMoviesApi(query);
+      const data = await searchMoviesApi(params);
       if (data.Response === "True") {
         setMovies(data.Search);
       } else {
@@ -32,9 +32,7 @@ export default function HomePage() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 dark:bg-gray-900">
       <Header />
-      {/* <h1 className="text-3xl font-bold text-center mb-8 text-slate-800 dark:text-white ">
-        Поиск фильмов
-      </h1> */}
+
       <main className="py-4">
         <SearchBar onSearch={handleSearch} />
         {loading && (

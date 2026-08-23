@@ -35,3 +35,9 @@ export interface MovieDetails {
   Response: "True" | "False";
   Error?: string;
 }
+
+export interface MovieSearchQuery {
+  s: string;
+  year?: string;
+  type?: "movie" | "series" | "episode";
+}
