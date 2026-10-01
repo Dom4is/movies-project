@@ -14,14 +14,22 @@ export default function App() {
     } else {
       document.documentElement.classList.remove("dark");
     }
+    window.localStorage.setItem("movie-theme", theme);
   }, [theme]);
+
+  const favorites = useAppSelector((state) => state.favorites.items);
+
+  useEffect(() => {
+    window.localStorage.setItem("movie-favorites", JSON.stringify(favorites));
+  }, [favorites]);
+
   return (
-    <>
+    <div className="min-h-screen bg-[var(--color-canvas)] text-[var(--color-copy)]">
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/movie/:id" element={<MovieDetailsPage />} />
         <Route path="/favorites" element={<FavoritesPage />} />
       </Routes>
-    </>
+    </div>
   );
 }

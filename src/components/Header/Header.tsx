@@ -1,5 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
-import ToggleTheme from "../ToggleTheme/ToggleTheme"; // если есть
+import ToggleTheme from "../ToggleTheme/ToggleTheme";
 import { useAppSelector } from "../../hooks/redux";
 
 export default function Header() {
@@ -8,21 +8,19 @@ export default function Header() {
   );
 
   return (
-    <header className="flex items-center justify-between max-w-6xl mx-auto bg-white dark:bg-gray-900 shadow-sm">
-      {/* Логотип */}
+    <header className="flex flex-wrap items-center justify-between gap-4 border-b border-[var(--color-border)] pb-5">
       <Link
         to="/"
-        className="text-xl font-bold text-slate-800 dark:text-white hover:text-indigo-500 transition-colors"
+        className="text-xl font-black tracking-[-0.04em] text-[var(--color-copy)] transition-colors hover:text-[var(--color-accent)]"
       >
-        🎬 MovieSearch
+        MOVIE<span className="text-[var(--color-accent)]">/</span>SEARCH
       </Link>
 
-      {/* Навигация */}
-      <nav className="flex items-center gap-6">
+      <nav className="order-3 flex w-full items-center gap-5 text-sm sm:order-2 sm:w-auto">
         <NavLink
           to="/"
           className={({ isActive }) =>
-            `text-slate-600 dark:text-slate-300 hover:text-indigo-500 transition-colors ${isActive ? "text-indigo-500 font-semibold" : ""}`
+            `transition-colors hover:text-[var(--color-accent)] ${isActive ? "font-bold text-[var(--color-accent)]" : "text-[var(--color-muted)]"}`
           }
         >
           Поиск
@@ -30,15 +28,17 @@ export default function Header() {
         <NavLink
           to="/favorites"
           className={({ isActive }) =>
-            `text-slate-600 dark:text-slate-300 hover:text-indigo-500 transition-colors ${isActive ? "text-indigo-500 font-semibold" : ""}`
+            `transition-colors hover:text-[var(--color-accent)] ${isActive ? "font-bold text-[var(--color-accent)]" : "text-[var(--color-muted)]"}`
           }
         >
-          Избранное ({favoritesCount})
+          Избранное{" "}
+          <span className="text-[var(--color-copy)]">({favoritesCount})</span>
         </NavLink>
       </nav>
 
-      {/* Переключатель темы */}
-      <ToggleTheme />
+      <div className="order-2 sm:order-3">
+        <ToggleTheme />
+      </div>
     </header>
   );
 }

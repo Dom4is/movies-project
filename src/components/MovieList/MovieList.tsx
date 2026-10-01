@@ -6,7 +6,7 @@ export default function MovieList({ movies }: { movies: Movie[] }) {
     return null;
   }
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-2 gap-x-3 gap-y-8 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4">
       {movies.map((movie) => (
         <MovieCard key={movie.imdbID} movie={movie} />
       ))}

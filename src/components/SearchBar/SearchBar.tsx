@@ -1,12 +1,7 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import type { MovieSearchQuery } from "../../types/movieTypes";
 
-interface SearchBarProps {
-  onSearch: (params: MovieSearchQuery) => void;
-}
-
-export default function SearchBar({ onSearch }: SearchBarProps) {
+export default function SearchBar() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("s") || "");
   const [type, setType] = useState(searchParams.get("type") || "");
@@ -15,36 +10,31 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const params: {
-      s: string;
-      type?: "movie" | "series" | "episode";
-      y?: string;
-    } = {
-      s: query.trim(),
-    };
-
-    if (type) params.type = type as "movie" | "series" | "episode";
-    if (year) params.y = year;
-
-    setSearchParams(params);
-
-    onSearch(params);
+    const nextParams = new URLSearchParams();
+    nextParams.set("s", query.trim());
+    if (type) nextParams.set("type", type);
+    if (year) nextParams.set("y", year);
+    nextParams.set("page", "1");
+    setSearchParams(nextParams);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-2">
+    <form
+      onSubmit={handleSubmit}
+      className="grid gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-3 shadow-[0_18px_50px_rgba(0,0,0,0.14)] sm:grid-cols-[minmax(0,1fr)_auto_auto_auto] sm:items-center"
+    >
       <input
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         required
         placeholder="Название фильма (на английском)..."
-        className="flex-1 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        className="h-12 min-w-0 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-raised)] px-4 text-[var(--color-copy)] placeholder:text-[var(--color-muted)] focus:border-[var(--color-accent)] focus:outline-none"
       />
       <select
         value={type}
         onChange={(e) => setType(e.target.value)}
-        className="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        className="h-12 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-raised)] px-4 text-[var(--color-copy)] focus:border-[var(--color-accent)] focus:outline-none"
       >
         <option value="">Все</option>
         <option value="movie">Фильм</option>
@@ -58,11 +48,11 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
         onChange={(e) => setYear(e.target.value)}
         min="1900"
         max="2026"
-        className="w-28 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        className="h-12 w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-raised)] px-4 text-[var(--color-copy)] placeholder:text-[var(--color-muted)] focus:border-[var(--color-accent)] focus:outline-none sm:w-28"
       />
       <button
         type="submit"
-        className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors"
+        className="h-12 rounded-xl bg-[var(--color-accent)] px-6 font-bold text-white transition-colors hover:bg-[var(--color-accent-strong)]"
       >
         Найти
       </button>

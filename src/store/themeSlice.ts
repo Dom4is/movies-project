@@ -4,8 +4,20 @@ interface ThemeState {
   value: "light" | "dark";
 }
 
+function loadSavedTheme(): string | null {
+  try {
+    return typeof window !== "undefined"
+      ? window.localStorage.getItem("movie-theme")
+      : null;
+  } catch {
+    return null;
+  }
+}
+
+const savedTheme = loadSavedTheme();
+
 const initialState: ThemeState = {
-  value: "light",
+  value: savedTheme === "dark" ? "dark" : "light",
 };
 
 export const themeSlice = createSlice({

@@ -5,8 +5,20 @@ export interface FavoritesState {
   items: Movie[];
 }
 
+function loadSavedFavorites(): Movie[] {
+  try {
+    const storedFavorites =
+      typeof window !== "undefined"
+        ? window.localStorage.getItem("movie-favorites")
+        : null;
+    return storedFavorites ? (JSON.parse(storedFavorites) as Movie[]) : [];
+  } catch {
+    return [];
+  }
+}
+
 const initialState: FavoritesState = {
-  items: [],
+  items: loadSavedFavorites(),
 };
 
 export const favoritesSlice = createSlice({

@@ -38,6 +38,7 @@ export interface MovieDetails {
 
 export interface MovieSearchQuery {
   s: string;
-  year?: string;
+  y?: string;
   type?: "movie" | "series" | "episode";
+  page?: number;
 }

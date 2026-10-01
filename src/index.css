@@ -3,4 +3,95 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  color: #f8fafc;
+  background: #101114;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  --color-canvas: #101114;
+  --color-surface: #17191e;
+  --color-surface-raised: #20232a;
+  --color-border: #343944;
+  --color-copy: #f8fafc;
+  --color-muted: #9da5b4;
+  --color-accent: #ff6b4a;
+  --color-accent-strong: #ff4f2e;
+  --color-danger: #ff7d7d;
+  --color-focus: #ffb19d;
+}
+
+:root:not(.dark) {
+  color: #20232a;
+  background: #f4f1ed;
+  --color-canvas: #f4f1ed;
+  --color-surface: #fffdf9;
+  --color-surface-raised: #ffffff;
+  --color-border: #ded8d0;
+  --color-copy: #20232a;
+  --color-muted: #68707d;
+  --color-accent: #d94b2f;
+  --color-accent-strong: #b93b23;
+  --color-danger: #b73535;
+  --color-focus: #c94126;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  background: var(--color-canvas);
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      color-mix(in srgb, var(--color-accent) 10%, transparent),
+      transparent 32rem
+    ),
+    var(--color-canvas);
+  color: var(--color-copy);
+  transition:
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button,
+a,
+input,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-accent) 35%, transparent);
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }
