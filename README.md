@@ -1,75 +1,99 @@
-# React + TypeScript + Vite
+# MOVIE/SEARCH
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Адаптивное приложение для поиска фильмов, сериалов и эпизодов через OMDb API.
+Проект написан на React и TypeScript с использованием Redux Toolkit и React Router.
 
-Currently, two official plugins are available:
+## Возможности
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Поиск по названию с задержкой запроса для уменьшения количества обращений к API
+- Фильтрация по типу: фильм, сериал или эпизод
+- Фильтрация по году выпуска
+- Пагинация результатов
+- Страница с подробной информацией о фильме
+- Добавление и удаление фильмов из избранного
+- Сохранение избранного и выбранной темы в `localStorage`
+- Переключение между светлой и тёмной темой
+- Состояния загрузки, ошибок и отсутствия результатов
+- Адаптивный интерфейс для мобильных и десктопных устройств
 
-## React Compiler
+## Технологии
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19
+- TypeScript
+- Vite
+- Redux Toolkit и React Redux
+- React Router
+- Tailwind CSS 4
+- Axios
+- Vitest
+- ESLint
 
-## Expanding the ESLint configuration
+## Структура проекта
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```text
+src/
+├── api/             # Запросы к OMDb API
+├── components/      # Компоненты интерфейса
+├── hooks/           # Типизированные Redux-хуки
+├── pages/           # Страницы поиска, деталей и избранного
+├── store/           # Store, reducers и тесты
+├── types/           # TypeScript-типы
+├── App.tsx          # Маршруты и сохранение состояния
+└── main.tsx         # Точка входа приложения
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Запуск локально
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Требования
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Node.js 20 или новее
+- npm
 
+### Установка
+
+1. Клонируйте репозиторий:
+
+```bash
+git clone https://github.com/Dom4is/movies-project.git
+cd movies-project
 ```
+
+2. Установите зависимости:
+
+```bash
+npm install
+```
+
+3. Создайте в корне проекта файл `.env`:
+
+```env
+VITE_OMDB_API_KEY=ваш_ключ_omdb
+```
+
+Получить бесплатный ключ можно на [OMDb API](https://www.omdbapi.com/apikey.aspx).
+
+4. Запустите приложение:
+
+```bash
+npm run dev
+```
+
+Vite выведет адрес локального сервера в терминале, обычно это `http://localhost:5173`.
+
+## Команды
+
+```bash
+npm run dev      # запуск сервера разработки
+npm run build    # проверка типов и сборка production-версии
+npm run preview  # предпросмотр production-сборки
+npm run lint     # проверка ESLint
+npm test         # запуск тестов Vitest
+```
+
+## Сборка
+
+```bash
+npm run build
+```
+
+Готовые файлы приложения будут размещены в каталоге `dist/`.
